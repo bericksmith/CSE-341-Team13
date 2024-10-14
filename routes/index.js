@@ -12,13 +12,13 @@ router.get('/', (req, res) => {
     }
 
     if (req.isAuthenticated()) {
-        loggedInLinks = `<p><a href="/api-docs">View API Docs</a> | <a href="/logout">Logout</a></p>`;
+        loggedInLinks = `<p><a href="/api-docs">View API Docs</a> | <a href="/users">View All Users</a> | <a href="/tickets">View All Tickets</a></p> <p><a href="/logout">Logout</a></p>`;
     } else {
         loggedInLinks = `<p><a href="/github">Login with GitHub</a> | <a href="/logout">Logout</a></p>`;
     }
 
     res.send(`
-        <h1>Welcome to the Group 13 Final Project - Event API</h1>
+        <h1>Welcome to the Group 13 Final Project Events API Hub</h1>
         <p>${message}</p>
         ${loggedInLinks}
     `);
