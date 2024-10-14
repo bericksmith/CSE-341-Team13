@@ -4,14 +4,23 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     let message = '';
+    let loggedInLinks = '';
+
     if (req.session.message) {
         message = req.session.message;
         delete req.session.message;
     }
+
+    if (req.isAuthenticated()) {
+        loggedInLinks = `<p><a href="/api-docs">View API Docs</a> | <a href="/logout">Logout</a></p>`;
+    } else {
+        loggedInLinks = `<p><a href="/github">Login with GitHub</a> | <a href="/logout">Logout</a></p>`;
+    }
+
     res.send(`
         <h1>Welcome to the Group 13 Final Project - Event API</h1>
         <p>${message}</p>
-        <p><a href="/github">Login with GitHub</a> | <a href="/logout">Logout</a></p>
+        ${loggedInLinks}
     `);
 });
 
