@@ -22,6 +22,25 @@ exports.validateUserUpdate = [
     body('location').optional().not().isEmpty().withMessage('Location is required')
 ];
 
+exports.validateTicket = [
+    body('event_id').not().isEmpty().withMessage('Event ID is required'),
+    body('user_id').not().isEmpty().withMessage('User ID is required'),
+    body('ticket_number').not().isEmpty().withMessage('Ticket number is required'),
+    body('price').isFloat({ gt: 0 }).withMessage('Price must be a positive number'),
+    body('date').isISO8601().withMessage('Date must be a valid ISO 8601 date'),
+    body('status').not().isEmpty().withMessage('Status is required')
+];
+
+exports.validateTicketUpdate = [
+    body('event_id').optional().not().isEmpty().withMessage('Event ID is required'),
+    body('user_id').optional().not().isEmpty().withMessage('User ID is required'),
+    body('ticket_number').optional().not().isEmpty().withMessage('Ticket number is required'),
+    body('price').optional().isFloat({ gt: 0 }).withMessage('Price must be a positive number'),
+    body('date').optional().isISO8601().withMessage('Date must be a valid ISO 8601 date'),
+    body('status').optional().not().isEmpty().withMessage('Status is required')
+];
+
+
 exports.validationResult = (req, res, next) => {
     const errors = require('express-validator').validationResult(req);
     if (!errors.isEmpty()) {
