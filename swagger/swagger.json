@@ -1,0 +1,228 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "title": "Final Project API CSE 341",
+      "description": "Final Project API for managing users",
+      "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": [
+      "http"
+  ],
+  "paths": {
+      "/users": {
+          "get": {
+              "summary": "Get all users",
+              "description": "Fetches all users from the database",
+              "responses": {
+                  "200": {
+                      "description": "A list of users",
+                      "schema": {
+                          "type": "array",
+                          "items": {
+                              "$ref": "#/definitions/User"
+                          }
+                      }
+                  },
+                  "500": {
+                      "description": "Internal server error"
+                  }
+              }
+          },
+          "post": {
+              "summary": "Create a new user",
+              "description": "Creates a new user in the database",
+              "parameters": [
+                  {
+                      "name": "body",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/UserInput"
+                      }
+                  }
+              ],
+              "responses": {
+                  "201": {
+                      "description": "User created successfully"
+                  },
+                  "400": {
+                      "description": "Bad request - Invalid input"
+                  },
+                  "500": {
+                      "description": "Internal server error"
+                  }
+              }
+          }
+      },
+      "/users/{id}": {
+          "get": {
+              "summary": "Get user by ID",
+              "description": "Fetches a user by their ID",
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "type": "string"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "A single user",
+                      "schema": {
+                          "$ref": "#/definitions/User"
+                      }
+                  },
+                  "404": {
+                      "description": "User not found"
+                  },
+                  "500": {
+                      "description": "Internal server error"
+                  }
+              }
+          },
+          "put": {
+              "summary": "Update a user by ID",
+              "description": "Updates an existing user by their ID",
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "type": "string"
+                  },
+                  {
+                      "name": "body",
+                      "in": "body",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/UserInput"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "User updated successfully"
+                  },
+                  "400": {
+                      "description": "Bad request - Invalid input"
+                  },
+                  "404": {
+                      "description": "User not found"
+                  },
+                  "500": {
+                      "description": "Internal server error"
+                  }
+              }
+          },
+          "delete": {
+              "summary": "Delete a user by ID",
+              "description": "Deletes a user from the database by their ID",
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "type": "string"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "User deleted successfully"
+                  },
+                  "404": {
+                      "description": "User not found"
+                  },
+                  "500": {
+                      "description": "Internal server error"
+                  }
+              }
+          }
+      }
+  },
+  "definitions": {
+      "User": {
+          "type": "object",
+          "properties": {
+              "fname": {
+                  "type": "string",
+                  "example": "John"
+              },
+              "lname": {
+                  "type": "string",
+                  "example": "Doe"
+              },
+              "email": {
+                  "type": "string",
+                  "example": "john.doe@example.com"
+              },
+              "password": {
+                  "type": "string",
+                  "example": "password1234"
+              },
+              "role": {
+                  "type": "string",
+                  "example": "organizer"
+              },
+              "status": {
+                  "type": "string",
+                  "example": "active"
+              },
+              "dob": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "1990-05-25T00:00:00.000Z"
+              },
+              "location": {
+                  "type": "string",
+                  "example": "New York, USA"
+              },
+              "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-10-01T12:34:56.000Z"
+              }
+          }
+      },
+      "UserInput": {
+          "type": "object",
+          "properties": {
+              "fname": {
+                  "type": "string",
+                  "example": "John"
+              },
+              "lname": {
+                  "type": "string",
+                  "example": "Doe"
+              },
+              "email": {
+                  "type": "string",
+                  "example": "john.doe@example.com"
+              },
+              "password": {
+                  "type": "string",
+                  "example": "password1234"
+              },
+              "role": {
+                  "type": "string",
+                  "example": "organizer"
+              },
+              "status": {
+                  "type": "string",
+                  "example": "active"
+              },
+              "dob": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "1990-05-25T00:00:00.000Z"
+              },
+              "location": {
+                  "type": "string",
+                  "example": "New York, USA"
+              }
+          }
+      }
+  }
+}
