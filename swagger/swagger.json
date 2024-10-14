@@ -20,6 +20,17 @@
       "description": "Endpoints for managing tickets"
     }
   ],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "authorizationUrl": "https://github.com/login/oauth/authorize",
+      "tokenUrl": "https://github.com/login/oauth/access_token",
+      "flow": "accessCode",
+      "scopes": {
+        "user": "Grants access to the authenticated user"
+      }
+    }
+  },
   "paths": {
     "/users": {
       "get": {
@@ -57,7 +68,12 @@
           "500": {
             "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": ["user"]
+          }
+        ]
       }
     },
     "/users/{id}": {
@@ -116,7 +132,12 @@
           "500": {
             "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": ["user"]
+          }
+        ]
       },
       "delete": {
         "tags": ["Users"],
@@ -140,7 +161,12 @@
           "500": {
             "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": ["user"]
+          }
+        ]
       }
     },
     "/tickets": {
@@ -179,7 +205,12 @@
           "500": {
             "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": ["user"]
+          }
+        ]
       }
     },
     "/tickets/{id}": {
@@ -238,7 +269,12 @@
           "500": {
             "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": ["user"]
+          }
+        ]
       },
       "delete": {
         "tags": ["Tickets"],
@@ -262,7 +298,12 @@
           "500": {
             "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": ["user"]
+          }
+        ]
       }
     }
   }
