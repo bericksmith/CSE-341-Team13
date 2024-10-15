@@ -3,7 +3,7 @@ const swaggerAutogen = require('swagger-autogen')();
 const doc = {
     info: {
         title: 'Final Project API CSE 341',
-        description: 'Final Project API for managing events'
+        description: "API for managing users and products\n\nContributors:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros"       
     },
     host: 'cse-341-team13.onrender.com',
     schemes: ['https'],
