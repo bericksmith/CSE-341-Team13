@@ -2,6 +2,7 @@ const { ObjectId } = require('mongodb');
 
 // Get all tickets
 exports.getTickets = async (req, res) => {
+    //#swagger.tags=['Tickets']
     const db = req.app.locals.db;
 
     try {
@@ -15,6 +16,7 @@ exports.getTickets = async (req, res) => {
 
 // Get a ticket by ID
 exports.getTicketById = async (req, res) => {
+    //#swagger.tags=['Tickets']
     const db = req.app.locals.db;
     const { id } = req.params;
 
@@ -36,6 +38,7 @@ exports.getTicketById = async (req, res) => {
 
 // Create a new ticket
 exports.createTicket = async (req, res) => {
+    //#swagger.tags=['Tickets']
     const db = req.app.locals.db;
     const { event_id, user_id, ticket_number, price, date, status } = req.body;
 
@@ -59,6 +62,7 @@ exports.createTicket = async (req, res) => {
 
 // Update a ticket by ID
 exports.updateTicket = async (req, res) => {
+    //#swagger.tags=['Tickets']
     const db = req.app.locals.db;
     const { id } = req.params;
     const updateData = req.body;
@@ -86,6 +90,7 @@ exports.updateTicket = async (req, res) => {
 
 // Delete a ticket by ID
 exports.deleteTicket = async (req, res) => {
+    //#swagger.tags=['Tickets']
     const db = req.app.locals.db;
     const { id } = req.params;
 

@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     }
 
     if (req.isAuthenticated()) {
-        loggedInLinks = `<p><a href="/api-docs">View API Docs</a> | <a href="/users">View All Users</a> | <a href="/tickets">View All Tickets</a></p> <p><a href="/logout">Logout</a></p>`;
+        loggedInLinks = `<p><a href="/api-docs">View API Docs</a> | <a href="/users">View All Users</a> | <a href="/tickets">View All Tickets</a> | <a href="/events">View All Events</a></p>  <p><a href="/logout">Logout</a></p>`;
     } else {
         loggedInLinks = `<p><a href="/github">Login with GitHub</a> | <a href="/logout">Logout</a></p>`;
     }
@@ -43,5 +43,9 @@ router.get('/logout', (req, res, next) => {
         res.redirect('/');
     });
 });
+
+router.use('/users', require('./users'));
+router.use('/events', require('./events'));
+router.use('/tickets', require('./tickets'));
 
 module.exports = router;

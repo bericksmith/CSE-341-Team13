@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 
 // Get all users
 exports.getUsers = async (req, res) => {
+    //#swagger.tags=['Users']
     const db = req.app.locals.db;
 
     try {
@@ -17,6 +18,7 @@ exports.getUsers = async (req, res) => {
 
 // Get a user by ID
 exports.getUserById = async (req, res) => {
+    //#swagger.tags=['Users']
     const db = req.app.locals.db;
     const { id } = req.params;
 
@@ -38,6 +40,7 @@ exports.getUserById = async (req, res) => {
 
 // Create a new user
 exports.createUser = async (req, res) => {
+    //#swagger.tags=['Users']
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -71,6 +74,7 @@ exports.createUser = async (req, res) => {
 
 // Update a user by ID
 exports.updateUser = async (req, res) => {
+    //#swagger.tags=['Users']
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -107,6 +111,7 @@ exports.updateUser = async (req, res) => {
 
 // Delete a user by ID
 exports.deleteUser = async (req, res) => {
+    //#swagger.tags=['Users']
     const db = req.app.locals.db;
     const { id } = req.params;
 
