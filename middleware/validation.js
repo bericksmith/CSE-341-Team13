@@ -40,6 +40,25 @@ exports.validateTicketUpdate = [
     body('status').optional().not().isEmpty().withMessage('Status is required')
 ];
 
+exports.validateEvent = [
+    body('name').not().isEmpty().withMessage('Event name is required'),
+    body('location').not().isEmpty().withMessage('Location is required'),
+    body('date').isISO8601().withMessage('Date must be a valid ISO 8601 date'),
+    body('time')
+        .matches(/^(0?[1-9]|1[0-2]):[0-5]\d (AM|PM)$/i)
+        .withMessage('Time must be in the format hh:mm AM/PM (12-hour format)'),
+    body('venue').not().isEmpty().withMessage('Venue is required')
+];
+
+exports.validateEventUpdate = [
+    body('name').not().isEmpty().withMessage('Event name is required'),
+    body('location').not().isEmpty().withMessage('Location is required'),
+    body('date').isISO8601().withMessage('Date must be a valid ISO 8601 date'),
+    body('time')
+        .matches(/^(0?[1-9]|1[0-2]):[0-5]\d (AM|PM)$/i)
+        .withMessage('Time must be in the format hh:mm AM/PM (12-hour format)'),
+    body('venue').not().isEmpty().withMessage('Venue is required')
+];
 
 exports.validationResult = (req, res, next) => {
     const errors = require('express-validator').validationResult(req);
