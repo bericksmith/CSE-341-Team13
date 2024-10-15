@@ -3,10 +3,10 @@ const swaggerAutogen = require('swagger-autogen')();
 const doc = {
     info: {
         title: 'Final Project API CSE 341',
-        description: 'Final Project API for managing users and events'
+        description: 'Final Project API for managing events'
     },
-    host: 'localhost:5000',
-    schemes: ['http'],
+    host: 'cse-341-team13.onrender.com',
+    schemes: ['https'],
 };
 
 const outputFile = './swagger/swagger.json';

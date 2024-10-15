@@ -2,7 +2,11 @@ const { ObjectId } = require('mongodb');
 
 // Get all tickets
 exports.getTickets = async (req, res) => {
-    //#swagger.tags=['Tickets']
+    /* 
+      #swagger.tags = ['Tickets']
+      #swagger.summary = 'GET all tickets'
+      #swagger.description = 'This endpoint returns a list of all tickets.'
+    */
     const db = req.app.locals.db;
 
     try {
@@ -16,7 +20,12 @@ exports.getTickets = async (req, res) => {
 
 // Get a ticket by ID
 exports.getTicketById = async (req, res) => {
-    //#swagger.tags=['Tickets']
+    /* 
+      #swagger.tags = ['Tickets']
+      #swagger.summary = 'GET a ticket by ID'
+      #swagger.description = 'This endpoint returns a single ticket based on the provided ID.'
+      #swagger.parameters['id'] = { description: 'Ticket ID', required: true }
+    */
     const db = req.app.locals.db;
     const { id } = req.params;
 
@@ -38,7 +47,24 @@ exports.getTicketById = async (req, res) => {
 
 // Create a new ticket
 exports.createTicket = async (req, res) => {
-    //#swagger.tags=['Tickets']
+    /* 
+      #swagger.tags = ['Tickets']
+      #swagger.summary = 'CREATE a new ticket'
+      #swagger.description = 'This endpoint creates a new ticket with the provided details.'
+      #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Ticket data',
+            required: true,
+            schema: {
+              $event_id: '603e48a3e7abf40d1b0d9c7d',
+              $user_id: '603e48a3e7abf40d1b0d9c7e',
+              $ticket_number: '123456789',
+              $price: 50,
+              $date: '2024-12-25',
+              $status: 'active'
+            }
+        }
+    */
     const db = req.app.locals.db;
     const { event_id, user_id, ticket_number, price, date, status } = req.body;
 
@@ -62,7 +88,21 @@ exports.createTicket = async (req, res) => {
 
 // Update a ticket by ID
 exports.updateTicket = async (req, res) => {
-    //#swagger.tags=['Tickets']
+    /* 
+      #swagger.tags = ['Tickets']
+      #swagger.summary = 'UPDATE a ticket by ID'
+      #swagger.description = 'This endpoint updates a ticket based on the provided ID and data.'
+      #swagger.parameters['id'] = { description: 'Ticket ID', required: true }
+      #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Updated ticket data',
+            schema: {
+              ticket_number: '123456789',
+              price: 50,
+              status: 'active'
+            }
+        }
+    */
     const db = req.app.locals.db;
     const { id } = req.params;
     const updateData = req.body;
@@ -90,7 +130,12 @@ exports.updateTicket = async (req, res) => {
 
 // Delete a ticket by ID
 exports.deleteTicket = async (req, res) => {
-    //#swagger.tags=['Tickets']
+    /* 
+      #swagger.tags = ['Tickets']
+      #swagger.summary = 'DELETE a ticket by ID'
+      #swagger.description = 'This endpoint deletes a ticket based on the provided ID.'
+      #swagger.parameters['id'] = { description: 'Ticket ID', required: true }
+    */
     const db = req.app.locals.db;
     const { id } = req.params;
 

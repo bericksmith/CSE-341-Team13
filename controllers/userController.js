@@ -4,7 +4,11 @@ const { validationResult } = require('express-validator');
 
 // Get all users
 exports.getUsers = async (req, res) => {
-    //#swagger.tags=['Users']
+    /* 
+      #swagger.tags = ['Users']
+      #swagger.summary = 'GET all users'
+      #swagger.description = 'This endpoint returns a list of all users.'
+    */
     const db = req.app.locals.db;
 
     try {
@@ -18,7 +22,12 @@ exports.getUsers = async (req, res) => {
 
 // Get a user by ID
 exports.getUserById = async (req, res) => {
-    //#swagger.tags=['Users']
+    /* 
+      #swagger.tags = ['Users']
+      #swagger.summary = 'GET a user by ID'
+      #swagger.description = 'This endpoint returns a single user based on the provided ID.'
+      #swagger.parameters['id'] = { description: 'User ID', required: true }
+    */
     const db = req.app.locals.db;
     const { id } = req.params;
 
@@ -40,7 +49,26 @@ exports.getUserById = async (req, res) => {
 
 // Create a new user
 exports.createUser = async (req, res) => {
-    //#swagger.tags=['Users']
+    /* 
+      #swagger.tags = ['Users']
+      #swagger.summary = 'CREATE a new user'
+      #swagger.description = 'This endpoint creates a new user with the provided details.'
+      #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'User data',
+            required: true,
+            schema: {
+              $fname: 'John',
+              $lname: 'Doe',
+              $email: 'john.doe@example.com',
+              $password: 'password123',
+              $role: 'user',
+              $status: 'active',
+              $dob: '1990-01-01',
+              $location: 'New York'
+            }
+        }
+    */
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -74,7 +102,25 @@ exports.createUser = async (req, res) => {
 
 // Update a user by ID
 exports.updateUser = async (req, res) => {
-    //#swagger.tags=['Users']
+    /* 
+      #swagger.tags = ['Users']
+      #swagger.summary = 'UPDATE a user by ID'
+      #swagger.description = 'This endpoint updates a user based on the provided ID and data.'
+      #swagger.parameters['id'] = { description: 'User ID', required: true }
+      #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Updated user data',
+            schema: {
+              fname: 'John',
+              lname: 'Doe',
+              email: 'john.doe@example.com',
+              role: 'admin',
+              status: 'active',
+              dob: '1990-01-01',
+              location: 'New York'
+            }
+        }
+    */
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -111,7 +157,12 @@ exports.updateUser = async (req, res) => {
 
 // Delete a user by ID
 exports.deleteUser = async (req, res) => {
-    //#swagger.tags=['Users']
+    /* 
+      #swagger.tags = ['Users']
+      #swagger.summary = 'DELETE a user by ID'
+      #swagger.description = 'This endpoint deletes a user based on the provided ID.'
+      #swagger.parameters['id'] = { description: 'User ID', required: true }
+    */
     const db = req.app.locals.db;
     const { id } = req.params;
 

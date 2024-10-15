@@ -2,13 +2,13 @@
   "swagger": "2.0",
   "info": {
     "title": "Final Project API CSE 341",
-    "description": "Final Project API for managing users and events",
+    "description": "Final Project API for managing events",
     "version": "1.0.0"
   },
-  "host": "cse-341-team13.onrender.com",
+  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/": {
@@ -56,7 +56,8 @@
         "tags": [
           "Users"
         ],
-        "description": "",
+        "summary": "GET all users",
+        "description": "This endpoint returns a list of all users.",
         "responses": {
           "200": {
             "description": "OK"
@@ -70,39 +71,60 @@
         "tags": [
           "Users"
         ],
-        "description": "",
+        "summary": "CREATE a new user",
+        "description": "This endpoint creates a new user with the provided details.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "User data",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "fname": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "John"
                 },
                 "lname": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Doe"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "john.doe@example.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "password123"
                 },
                 "role": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "user"
                 },
                 "status": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "active"
                 },
                 "dob": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "1990-01-01"
                 },
                 "location": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "New York"
                 }
-              }
+              },
+              "required": [
+                "fname",
+                "lname",
+                "email",
+                "password",
+                "role",
+                "status",
+                "dob",
+                "location"
+              ]
             }
           }
         ],
@@ -127,13 +149,15 @@
         "tags": [
           "Users"
         ],
-        "description": "",
+        "summary": "GET a user by ID",
+        "description": "This endpoint returns a single user based on the provided ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID"
           }
         ],
         "responses": {
@@ -155,22 +179,50 @@
         "tags": [
           "Users"
         ],
-        "description": "",
+        "summary": "UPDATE a user by ID",
+        "description": "This endpoint updates a user based on the provided ID and data.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID"
           },
           {
             "name": "body",
             "in": "body",
+            "description": "Updated user data",
             "schema": {
               "type": "object",
               "properties": {
-                "password": {
-                  "example": "any"
+                "fname": {
+                  "type": "string",
+                  "example": "John"
+                },
+                "lname": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john.doe@example.com"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "admin"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "dob": {
+                  "type": "string",
+                  "example": "1990-01-01"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "New York"
                 }
               }
             }
@@ -198,13 +250,15 @@
         "tags": [
           "Users"
         ],
-        "description": "",
+        "summary": "DELETE a user by ID",
+        "description": "This endpoint deletes a user based on the provided ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID"
           }
         ],
         "responses": {
@@ -409,7 +463,8 @@
         "tags": [
           "Tickets"
         ],
-        "description": "",
+        "summary": "GET all tickets",
+        "description": "This endpoint returns a list of all tickets.",
         "responses": {
           "200": {
             "description": "OK"
@@ -423,33 +478,50 @@
         "tags": [
           "Tickets"
         ],
-        "description": "",
+        "summary": "CREATE a new ticket",
+        "description": "This endpoint creates a new ticket with the provided details.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Ticket data",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "event_id": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "603e48a3e7abf40d1b0d9c7d"
                 },
                 "user_id": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "603e48a3e7abf40d1b0d9c7e"
                 },
                 "ticket_number": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "123456789"
                 },
                 "price": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 50
                 },
                 "date": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "2024-12-25"
                 },
                 "status": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "active"
                 }
-              }
+              },
+              "required": [
+                "event_id",
+                "user_id",
+                "ticket_number",
+                "price",
+                "date",
+                "status"
+              ]
             }
           }
         ],
@@ -474,13 +546,15 @@
         "tags": [
           "Tickets"
         ],
-        "description": "",
+        "summary": "GET a ticket by ID",
+        "description": "This endpoint returns a single ticket based on the provided ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Ticket ID"
           }
         ],
         "responses": {
@@ -502,13 +576,37 @@
         "tags": [
           "Tickets"
         ],
-        "description": "",
+        "summary": "UPDATE a ticket by ID",
+        "description": "This endpoint updates a ticket based on the provided ID and data.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Ticket ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated ticket data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ticket_number": {
+                  "type": "string",
+                  "example": "123456789"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 50
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -533,13 +631,15 @@
         "tags": [
           "Tickets"
         ],
-        "description": "",
+        "summary": "DELETE a ticket by ID",
+        "description": "This endpoint deletes a ticket based on the provided ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Ticket ID"
           }
         ],
         "responses": {
