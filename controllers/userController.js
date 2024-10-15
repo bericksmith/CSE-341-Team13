@@ -51,7 +51,7 @@ exports.getUserById = async (req, res) => {
 exports.createUser = async (req, res) => {
     /* 
       #swagger.tags = ['Users']
-      #swagger.summary = 'CREATE a new user'
+      #swagger.summary = 'CREATE a new user (OAuth required)'
       #swagger.description = 'This endpoint creates a new user with the provided details.'
       #swagger.parameters['body'] = {
             in: 'body',
@@ -68,6 +68,7 @@ exports.createUser = async (req, res) => {
               $location: 'New York'
             }
         }
+      #swagger.security = [{ "OAuth2": [] }]
     */
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -104,7 +105,7 @@ exports.createUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
     /* 
       #swagger.tags = ['Users']
-      #swagger.summary = 'UPDATE a user by ID'
+      #swagger.summary = 'UPDATE a user by ID (OAuth required)'
       #swagger.description = 'This endpoint updates a user based on the provided ID and data.'
       #swagger.parameters['id'] = { description: 'User ID', required: true }
       #swagger.parameters['body'] = {
@@ -120,6 +121,7 @@ exports.updateUser = async (req, res) => {
               location: 'New York'
             }
         }
+      #swagger.security = [{ "OAuth2": [] }]
     */
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -159,9 +161,10 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
     /* 
       #swagger.tags = ['Users']
-      #swagger.summary = 'DELETE a user by ID'
+      #swagger.summary = 'DELETE a user by ID (OAuth required)'
       #swagger.description = 'This endpoint deletes a user based on the provided ID.'
       #swagger.parameters['id'] = { description: 'User ID', required: true }
+      #swagger.security = [{ "OAuth2": [] }]
     */
     const db = req.app.locals.db;
     const { id } = req.params;

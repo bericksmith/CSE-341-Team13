@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb');
 
-// Get all tickets
+// Get all tickets 
 exports.getTickets = async (req, res) => {
     /* 
       #swagger.tags = ['Tickets']
@@ -45,11 +45,11 @@ exports.getTicketById = async (req, res) => {
     }
 };
 
-// Create a new ticket
+// Create a new ticket 
 exports.createTicket = async (req, res) => {
     /* 
       #swagger.tags = ['Tickets']
-      #swagger.summary = 'CREATE a new ticket'
+      #swagger.summary = 'CREATE a new ticket (OAuth required)'
       #swagger.description = 'This endpoint creates a new ticket with the provided details.'
       #swagger.parameters['body'] = {
             in: 'body',
@@ -64,6 +64,7 @@ exports.createTicket = async (req, res) => {
               $status: 'active'
             }
         }
+      #swagger.security = [{ "OAuth2": [] }]
     */
     const db = req.app.locals.db;
     const { event_id, user_id, ticket_number, price, date, status } = req.body;
@@ -90,7 +91,7 @@ exports.createTicket = async (req, res) => {
 exports.updateTicket = async (req, res) => {
     /* 
       #swagger.tags = ['Tickets']
-      #swagger.summary = 'UPDATE a ticket by ID'
+      #swagger.summary = 'UPDATE a ticket by ID (OAuth required)'
       #swagger.description = 'This endpoint updates a ticket based on the provided ID and data.'
       #swagger.parameters['id'] = { description: 'Ticket ID', required: true }
       #swagger.parameters['body'] = {
@@ -102,6 +103,7 @@ exports.updateTicket = async (req, res) => {
               status: 'active'
             }
         }
+      #swagger.security = [{ "OAuth2": [] }]
     */
     const db = req.app.locals.db;
     const { id } = req.params;
@@ -132,9 +134,10 @@ exports.updateTicket = async (req, res) => {
 exports.deleteTicket = async (req, res) => {
     /* 
       #swagger.tags = ['Tickets']
-      #swagger.summary = 'DELETE a ticket by ID'
+      #swagger.summary = 'DELETE a ticket by ID (OAuth required)'
       #swagger.description = 'This endpoint deletes a ticket based on the provided ID.'
       #swagger.parameters['id'] = { description: 'Ticket ID', required: true }
+      #swagger.security = [{ "OAuth2": [] }]
     */
     const db = req.app.locals.db;
     const { id } = req.params;

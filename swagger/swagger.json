@@ -10,6 +10,18 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://github.com/login/oauth/authorize",
+      "tokenUrl": "https://github.com/login/oauth/access_token",
+      "scopes": {
+        "read": "Grants read access",
+        "write": "Grants write access"
+      }
+    }
+  },
   "paths": {
     "/": {
       "get": {
@@ -71,7 +83,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "CREATE a new user",
+        "summary": "CREATE a new user (OAuth required)",
         "description": "This endpoint creates a new user with the provided details.",
         "parameters": [
           {
@@ -141,7 +153,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       }
     },
     "/users/{id}": {
@@ -179,7 +196,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "UPDATE a user by ID",
+        "summary": "UPDATE a user by ID (OAuth required)",
         "description": "This endpoint updates a user based on the provided ID and data.",
         "parameters": [
           {
@@ -244,13 +261,18 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       },
       "delete": {
         "tags": [
           "Users"
         ],
-        "summary": "DELETE a user by ID",
+        "summary": "DELETE a user by ID (OAuth required)",
         "description": "This endpoint deletes a user based on the provided ID.",
         "parameters": [
           {
@@ -277,7 +299,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       }
     },
     "/events/": {
@@ -478,7 +505,7 @@
         "tags": [
           "Tickets"
         ],
-        "summary": "CREATE a new ticket",
+        "summary": "CREATE a new ticket (OAuth required)",
         "description": "This endpoint creates a new ticket with the provided details.",
         "parameters": [
           {
@@ -538,7 +565,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       }
     },
     "/tickets/{id}": {
@@ -576,7 +608,7 @@
         "tags": [
           "Tickets"
         ],
-        "summary": "UPDATE a ticket by ID",
+        "summary": "UPDATE a ticket by ID (OAuth required)",
         "description": "This endpoint updates a ticket based on the provided ID and data.",
         "parameters": [
           {
@@ -625,13 +657,18 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       },
       "delete": {
         "tags": [
           "Tickets"
         ],
-        "summary": "DELETE a ticket by ID",
+        "summary": "DELETE a ticket by ID (OAuth required)",
         "description": "This endpoint deletes a ticket based on the provided ID.",
         "parameters": [
           {
@@ -658,7 +695,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       }
     }
   }
