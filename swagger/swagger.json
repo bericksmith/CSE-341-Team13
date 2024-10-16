@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Final Project API CSE 341",
-    "description": "API for managing users and products\n\nContributors:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros",
+    "title": "Event Management System API - CSE 341",
+    "description": "Team 13 Final Project - API for managing events\n\nContributors:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros",
     "version": "1.0.0"
   },
   "host": "cse-341-team13.onrender.com",
@@ -312,7 +312,8 @@
         "tags": [
           "Events"
         ],
-        "description": "",
+        "summary": "GET all events",
+        "description": "This endpoint returns a list of all events.",
         "responses": {
           "200": {
             "description": "OK"
@@ -326,30 +327,45 @@
         "tags": [
           "Events"
         ],
-        "description": "",
+        "summary": "CREATE a new event (OAuth required)",
+        "description": "This endpoint creates a new event with the provided details.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Event data",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Fun Event"
                 },
                 "location": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Where"
                 },
                 "date": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "2024-10-29"
                 },
                 "time": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "08:00 PM"
                 },
                 "venue": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Facility Name"
                 }
-              }
+              },
+              "required": [
+                "name",
+                "location",
+                "date",
+                "time",
+                "venue"
+              ]
             }
           }
         ],
@@ -366,7 +382,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       }
     },
     "/events/{id}": {
@@ -374,13 +395,15 @@
         "tags": [
           "Events"
         ],
-        "description": "",
+        "summary": "GET an event by ID",
+        "description": "This endpoint returns a single event based on the provided ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Event ID"
           }
         ],
         "responses": {
@@ -402,34 +425,42 @@
         "tags": [
           "Events"
         ],
-        "description": "",
+        "summary": "UPDATE an event by ID (OAuth required)",
+        "description": "This endpoint updates an event based on the provided ID and data.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Event ID"
           },
           {
             "name": "body",
             "in": "body",
+            "description": "Updated event data",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Fun Event"
                 },
                 "location": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Where"
                 },
                 "date": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "YYYY-MM-DD"
                 },
                 "time": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "hh:mm AM/PM (12-hour format)"
                 },
                 "venue": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Name of Facility"
                 }
               }
             }
@@ -451,19 +482,26 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       },
       "delete": {
         "tags": [
           "Events"
         ],
-        "description": "",
+        "summary": "DELETE an event by ID (OAuth required)",
+        "description": "This endpoint deletes an event based on the provided ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Event ID"
           }
         ],
         "responses": {
@@ -482,7 +520,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
       }
     },
     "/tickets/": {
