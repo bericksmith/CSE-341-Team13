@@ -2,13 +2,7 @@ const express = require('express');
 const eventController = require('../controllers/eventController');
 const { validateEvent, validateEventUpdate, validationResult } = require('../middleware/validation');
 const router = express.Router();
-
-const ensureAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.status(401).send('Unauthorized');
-};
+const { ensureAuthenticated } = require('../middleware/authentication');
 
 router.get('/', eventController.getEvents);
 
