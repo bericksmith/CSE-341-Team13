@@ -34,6 +34,7 @@ MongoClient.connect(process.env.MONGO_URI)
         app.use('/users', require('./routes/users'));
         app.use('/tickets', require('./routes/tickets'));
         app.use('/events', require('./routes/events'));
+        app.use('/venues', require('./routes/venues'))
 
         app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

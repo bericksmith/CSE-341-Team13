@@ -1,0 +1,35 @@
+### Get Venue:
+GET http://localhost:5000/venues 
+
+### Get Venue by id:
+GET http://localhost:5000/venues/67117833293357433b140c4c
+
+### Create Venue:
+POST http://localhost:5000/venues
+Content-Type: application/json
+
+{
+    "name": "Grand Hall",
+    "address": "456 Broadway Ave",
+    "city": "New York",
+    "state": "NY",
+    "postal": "10001",
+    "capacity": 1500
+}
+
+
+### Update Venue:
+PUT http://localhost:5000/venues/67117833293357433b140c4c
+Content-Type: application/json
+
+{
+  "name": "Grand Hall",
+  "address": "456 Broadway Ave",
+  "city": "New York",
+  "state": "NY",
+  "postal": "10001",
+  "capacity": 200
+}
+
+###Delete Venue:
+DELETE http://localhost:5000/venues/67117833293357433b140c4c 
