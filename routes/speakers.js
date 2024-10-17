@@ -1,14 +1,8 @@
 const express = require('express');
+const router = express.Router();
 const speakerController = require('../controllers/speakerController');
 const { validateSpeaker, validateSpeakerUpdate, validationResult } = require('../middleware/validation');
-const router = express.Router();
-
-const ensureAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.status(401).send('Unauthorized');
-};
+const { ensureAuthenticated } = require('../middleware/authentication');
 
 router.get('/', speakerController.getSpeakers);
 

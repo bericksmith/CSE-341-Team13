@@ -1,7 +1,7 @@
 const express = require('express');
+const router = express.Router();
 const ticketController = require('../controllers/ticketsController');
 const { validateTicket, validateTicketUpdate, validationResult } = require('../middleware/validation');
-const router = express.Router();
 const { ensureAuthenticated } = require('../middleware/authentication');
 
 router.get('/', ticketController.getTickets);

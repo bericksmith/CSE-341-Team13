@@ -727,7 +727,7 @@
           "Speakers"
         ],
         "summary": "CREATE a speaker (OAuth required)",
-        "description": "Creates a new speaker given the required data.<br>  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br>   Returns an object containing the id created.",
+        "description": "Creates a new speaker given the required data.<br>\r  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br> \r  Returns an object containing the id created.",
         "parameters": [
           {
             "name": "body",
