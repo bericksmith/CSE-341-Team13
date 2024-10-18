@@ -5,10 +5,10 @@
     "description": "Team 13 Final Project - API for managing events\n\nContributors:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "cse-341-team13.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "securityDefinitions": {
     "OAuth2": {
