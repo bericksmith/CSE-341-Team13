@@ -67,7 +67,6 @@ exports.createVenue = async (req, res) => {
         }
       #swagger.security = [{ "OAuth2": [] }]
     */
-
     const db = req.app.locals.db;
     const { name, address, city, state, postal, capacity } = req.body;
     const created_at = new Date();
@@ -102,21 +101,16 @@ exports.updateVenue = async (req, res) => {
             in: 'body',
             description: 'Updated venue data',
             schema: {
-              name,
-              address,
-              city,
-              state,
-              postal,
-              capacity,
+              name: '',
+              address: '',
+              city: '',
+              state: '',
+              postal: '',
+              capacity: ''
             }
         }
       #swagger.security = [{ "OAuth2": [] }]
     */
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //     return res.status(400).json({ errors: errors.array() });
-    // }
-
     const db = req.app.locals.db;
     const { id } = req.params;
     const updateVenue = req.body;
@@ -125,7 +119,6 @@ exports.updateVenue = async (req, res) => {
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid venue ID format' });
         }
-
 
         const result = await db.collection('venues').updateOne(
             { _id: new ObjectId(id) },
