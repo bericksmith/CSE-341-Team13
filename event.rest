@@ -14,7 +14,7 @@ Content-Type: application/json
     "city": "New York",
     "state": "NY",
     "postal": "10001",
-    "capacity": 1500
+    "capacity": "1500"
 }
 
 

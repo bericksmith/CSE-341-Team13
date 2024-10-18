@@ -5,10 +5,10 @@
     "description": "Team 13 Final Project - API for managing events\n\n**Contributors**:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros\n\nThis API provides various endpoints for accessing resources. \n\n**Authentication Required**: Endpoints marked with a padlock icon are restricted and can only be accessed after logging in via GitHub using OAuth. \n\n**OAuth Login:** Authentication is handled via GitHub OAuth. To connect, use the following endpoints:\n\n- **Login**: https://cse-341-team13.onrender.com/github - Initiates the OAuth process with GitHub. \n- **Logout**: https://cse-341-team13.onrender.com/logout - Ends your session.",
     "version": "1.0.0"
   },
-  "host": "cse-341-team13.onrender.com",
+  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "securityDefinitions": {
     "OAuth2": {
@@ -964,6 +964,202 @@
           }
         ]
       }
+    },
+    "/venues/": {
+      "get": {
+        "tags": [
+          "Venues"
+        ],
+        "summary": "GET all Venues",
+        "description": "This endpoint returns a list of all Venues.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Venues"
+        ],
+        "summary": "CREATE a new venue (OAuth required)",
+        "description": "This endpoint creates a new venue with the provided details.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Venue data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": ""
+                },
+                "address": {
+                  "type": "string",
+                  "example": ""
+                },
+                "city": {
+                  "type": "string",
+                  "example": ""
+                },
+                "state": {
+                  "type": "string",
+                  "example": ""
+                },
+                "postal": {
+                  "type": "string",
+                  "example": ""
+                },
+                "capacity": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "name",
+                "address",
+                "city",
+                "state",
+                "postal",
+                "capacity"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
+      }
+    },
+    "/venues/{id}": {
+      "get": {
+        "tags": [
+          "Venues"
+        ],
+        "summary": "GET a venue by ID",
+        "description": "This endpoint returns a single venue based on the provided ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "venue ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Venues"
+        ],
+        "summary": "UPDATE a venue by ID (OAuth required)",
+        "description": "This endpoint updates a venue based on the provided ID and data.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Venue ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Venues"
+        ],
+        "summary": "DELETE a venue by ID (OAuth required)",
+        "description": "This endpoint deletes a venue based on the provided ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Venue ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -1177,7 +1373,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Event type (e.g., conference, concert)"
+                  "example": "Event type (conference, concert)"
                 }
               }
             }
@@ -1286,7 +1482,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Ticket status (e.g., active, cancelled)"
+                  "example": "Ticket status (active, cancelled)"
                 }
               }
             }

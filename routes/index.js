@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const { route } = require('./users');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -52,5 +53,6 @@ router.use('/users', require('./users'));
 router.use('/events', require('./events'));
 router.use('/tickets', require('./tickets'));
 router.use('/speakers', require('./speakers'));
+router.use('/venues', require('./venues'));
 
 module.exports = router;
