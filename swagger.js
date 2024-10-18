@@ -49,6 +49,44 @@ const doc = {
                 'write': 'Grants write access'
             }
         }
+    },
+    definitions: {
+        User: {
+            type: 'object',
+            properties: {
+                _id: { type: 'string', description: 'User ID' },
+                fname: { type: 'string', description: 'First name' },
+                lname: { type: 'string', description: 'Last name' },
+                email: { type: 'string', description: 'Email address' },
+                dob: { type: 'string', format: 'date', description: 'Date of Birth' },
+                location: { type: 'string', description: 'Location' },
+                role: { type: 'string', description: 'User role' },
+                status: { type: 'string', description: 'Account status' }
+            }
+        },
+        Event: {
+            type: 'object',
+            properties: {
+                _id: { type: 'string', description: 'Event ID' },
+                name: { type: 'string', description: 'Event name' },
+                description: { type: 'string', description: 'Event description' },
+                date: { type: 'string', format: 'date-time', description: 'Event date' },
+                location: { type: 'string', description: 'Event location' },
+                type: { type: 'string', description: 'Event type (conference, concert)' }
+            }
+        },
+        Ticket: {
+            type: 'object',
+            properties: {
+                _id: { type: 'string', description: 'Ticket ID' },
+                event_id: { type: 'string', description: 'ID of the associated event' },
+                user_id: { type: 'string', description: 'ID of the associated user' },
+                ticket_number: { type: 'string', description: 'Unique ticket number' },
+                price: { type: 'number', description: 'Ticket price' },
+                date: { type: 'string', format: 'date-time', description: 'Date of ticket creation or purchase' },
+                status: { type: 'string', description: 'Ticket status (active, cancelled)' }
+            }
+        }
     }
 };
 

@@ -1,0 +1,38 @@
+// LOCALHOST
+### GET all USERS
+GET https://cse-341-team13.onrender.com/users HTTP/1.1
+
+### GET a USER by ID
+GET https://cse-341-team13.onrender.com/users/670978893bcacafded138 HTTP/1.1
+
+### POST Create a new USER
+POST https://cse-341-team13.onrender.com/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "fname": "John",
+  "lname": "Doe",
+  "email": "johndoe@gmail.com",
+  "password": "password123",
+  "role": "user",
+  "status": "active",
+  "dob": "1990-01-01",
+  "location": "New York"
+}
+
+### PUT Update a USER
+PUT https://cse-341-team13.onrender.com/users/670978893bcacafded13886e HTTP/1.1
+Content-Type: application/json
+
+{
+  "fname": "Jane",
+  "lname": "Doe",
+  "email": "janedoe@gmail.com",
+  "role": "admin",
+  "status": "active",
+  "dob": "1992-02-02",
+  "location": "San Francisco"
+}
+
+### DELETE Remove a USER
+DELETE https://cse-341-team13.onrender.com/users/670978893bcacafded13886e HTTP/1.1

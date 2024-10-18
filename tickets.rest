@@ -1,0 +1,31 @@
+### Get all tickets
+GET https://cse-341-team13.onrender.com/tickets HTTP/1.1
+
+### Get a ticket by ID
+GET https://cse-341-team13.onrender.com/tickets/670d6429f589751409339b4b HTTP/1.1
+
+### Create a new ticket
+POST https://cse-341-team13.onrender.com/tickets HTTP/1.1
+Content-Type: application/json
+
+{
+  "event_id": "603e48a3e7abf40d1b0d9c7d",
+  "user_id": "603e48a3e7abf40d1b0d9c7e",
+  "ticket_number": "123456789",
+  "price": 50,
+  "date": "2024-12-25",
+  "status": "active"
+}
+
+### Update a ticket by ID
+PUT https://cse-341-team13.onrender.com/tickets/670d6429f589751409339b4b HTTP/1.1
+Content-Type: application/json
+
+{
+  "ticket_number": "987654321",
+  "price": 75,
+  "status": "active"
+}
+
+### Delete a ticket by ID
+DELETE https://cse-341-team13.onrender.com/tickets/670d6429f589751409339b4b HTTP/1.1
