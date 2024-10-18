@@ -59,6 +59,23 @@ exports.validateEventUpdate = [
         .withMessage('Time must be in the format hh:mm AM/PM (12-hour format)'),
     body('venue').not().isEmpty().withMessage('Venue is required')
 ];
+exports.validateVenue= [
+    body('name').optional().not().isEmpty().withMessage('Venue name is required'),
+    body('address').optional().not().isEmpty().withMessage('Venue address is required'),
+    body('city').optional().not().isEmpty().withMessage('City is required'),
+    body('state').optional().not().isEmpty().withMessage('State is required'),
+    body('postal').optional().not().isEmpty().withMessage('postal is required'),
+    body('capacity').optional().not().isEmpty().withMessage('Capacity is required')
+]
+exports.validateVenueUpdate = [
+    body('name').optional().not().isEmpty().withMessage('Venue name is required'),
+    body('address').optional().not().isEmpty().withMessage('Venue address is required'),
+    body('city').optional().not().isEmpty().withMessage('City is required'),
+    body('state').optional().not().isEmpty().withMessage('State is required'),
+    body('postal').optional().not().isEmpty().withMessage('postal is required'),
+    body('capacity').optional().not().isEmpty().withMessage('Postal is required')
+]
+
 
 exports.validateSpeaker = [
     body('name').not().isEmpty().withMessage('Speaker name is required'),
