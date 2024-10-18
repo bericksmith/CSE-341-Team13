@@ -77,6 +77,32 @@ exports.validateVenueUpdate = [
 ]
 
 
+exports.validateSpeaker = [
+    body('name').not().isEmpty().withMessage('Speaker name is required'),
+    body('bio').not().isEmpty().withMessage('Speaker bio is required'),
+    body('photo_url').isURL().withMessage('Photo URL must be a valid URL'),
+    body('email').isEmail().withMessage('Email must be a valid email address'),
+    body('event').not().isEmpty().withMessage('Event ID is required')
+        .isString().withMessage('Event ID must be a string')
+        .matches(/^[a-f\d]{24}$/i).withMessage('Event ID must be a valid MongoDB ObjectId'),
+    body('specialization').not().isEmpty().withMessage('Specialization is required'),
+    body('availability').isBoolean().withMessage('Availability must be a boolean value'),
+    body('location').not().isEmpty().withMessage('Location is required')
+];
+
+exports.validateSpeakerUpdate = [
+    body('name').optional().not().isEmpty().withMessage('Speaker name cannot be empty if provided'),
+    body('bio').optional().not().isEmpty().withMessage('Speaker bio cannot be empty if provided'),
+    body('photo_url').optional().isURL().withMessage('Photo URL must be a valid URL if provided'),
+    body('email').optional().isEmail().withMessage('Email must be a valid email address if provided'),
+    body('event').optional().isString().withMessage('Event ID must be a string if provided')
+        .matches(/^[a-f\d]{24}$/i).withMessage('Event ID must be a valid MongoDB ObjectId'),
+    body('specialization').optional().not().isEmpty().withMessage('Specialization cannot be empty if provided'),
+    body('availability').optional().isBoolean().withMessage('Availability must be a boolean value if provided'),
+    body('location').optional().not().isEmpty().withMessage('Location cannot be empty if provided')
+];
+  
+
 exports.validationResult = (req, res, next) => {
     const errors = require('express-validator').validationResult(req);
     if (!errors.isEmpty()) {
