@@ -86,6 +86,16 @@ const doc = {
                 date: { type: 'string', format: 'date-time', description: 'Date of ticket creation or purchase' },
                 status: { type: 'string', description: 'Ticket status (active, cancelled)' }
             }
+        },        
+        Speakers: {
+            type: 'object',
+            properties: {
+            }
+        },        
+        Venues: {
+            type: 'object',
+            properties: {
+            }
         }
     }
 };
