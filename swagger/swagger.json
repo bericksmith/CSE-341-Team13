@@ -2,13 +2,13 @@
   "swagger": "2.0",
   "info": {
     "title": "Event Management System API - CSE 341",
-    "description": "Team 13 Final Project - API for managing events\n\n**Contributors**:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros\n\nThis API provides various endpoints for accessing resources. \n\n**Authentication Required**: Endpoints marked with a padlock icon are restricted and can only be accessed after logging in via GitHub using OAuth. \n\n**OAuth Login:** Authentication is handled via GitHub OAuth. To connect, use the following endpoints:\n\n- **Login**: https://cse-341-team13.onrender.com/github - Initiates the OAuth process with GitHub. \n- **Logout**: https://cse-341-team13.onrender.com/logout - Ends your session.",
+    "description": "Team 13 Final Project - API for managing events\n\n**Contributors**:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros\n\nThis API provides various endpoints for accessing resources. \n\n**Authentication Required**: Endpoints marked with a padlock icon are restricted and can only be accessed after logging in via GitHub using OAuth. \n\n**OAuth Login:** Authentication is handled via GitHub OAuth. To connect, use the following endpoints:\n\n- **Login**: http://localhost:5000/github - Initiates the OAuth process with GitHub. \n- **Logout**: http://localhost:5000/logout - Ends your session.",
     "version": "1.0.0"
   },
-  "host": "cse-341-team13.onrender.com",
+  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "securityDefinitions": {
     "OAuth2": {
@@ -727,7 +727,7 @@
           "Speakers"
         ],
         "summary": "CREATE a speaker (OAuth required)",
-        "description": "Creates a new speaker given the required data.<br>\r  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br> \r  Returns an object containing the id created.",
+        "description": "Creates a new speaker given the required data.<br>  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br>   Returns an object containing the id created.",
         "parameters": [
           {
             "name": "body",
@@ -1522,6 +1522,173 @@
                 "description": {
                   "type": "string",
                   "example": "Ticket status (active, cancelled)"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Speaker": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "object"
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Speaker ID"
+                }
+              }
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Full name of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Ana Maria Lopez"
+                }
+              }
+            },
+            "bio": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Brief biography of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Ana Maria is a renowned nutritionist with over 10 years of experience promoting healthy lifestyles. She has participated in multiple conferences on health and sports."
+                }
+              }
+            },
+            "photo_url": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "URL of the speaker's profile photo"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "https://example.com/ana_lopez.jpg"
+                }
+              }
+            },
+            "email": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "example": "email"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Email address of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "ana.lopez@example.com"
+                }
+              }
+            },
+            "event": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Event ID where the speaker is participating"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "670de14cd436d85952af4c3f"
+                }
+              }
+            },
+            "specialization": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Area of expertise or specialization of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Sports Nutrition"
+                }
+              }
+            },
+            "availability": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Indicates if the speaker is available for the event"
+                },
+                "example": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            },
+            "location": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Location of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Austin, TX"
                 }
               }
             }
