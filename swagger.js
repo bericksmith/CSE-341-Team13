@@ -4,7 +4,7 @@ const swaggerAutogen = require('swagger-autogen')();
     Set the 'environment' variable to 'dev' for local development
     or 'prod' for deployment on Render.
 */
-const environment = 'dev'; 
+const environment = 'prod'; 
 
 
 let host = '';
