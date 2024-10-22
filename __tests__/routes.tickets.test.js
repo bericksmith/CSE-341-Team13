@@ -9,12 +9,12 @@ app.use('/tickets', ticketRouter);
 
 jest.mock('../controllers/ticketsController');
 
-describe('Ticket Routes - GET Endpoints', () => {
+describe('Ticket Routes - GET Endpoints - Team 13', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should call getTickets controller on GET /tickets', async () => {
+  it('call getTickets controller on GET /tickets', async () => {
     ticketController.getTickets.mockImplementation((req, res) => {
       res.status(200).json({ tickets: [{ event: 'Concert', price: 50 }] });
     });
@@ -26,7 +26,7 @@ describe('Ticket Routes - GET Endpoints', () => {
     expect(ticketController.getTickets).toHaveBeenCalledTimes(1);
   });
 
-  it('should call getTicketById controller on GET /tickets/:id', async () => {
+  it('call getTicketById controller on GET /tickets/:id', async () => {
     ticketController.getTicketById.mockImplementation((req, res) => {
       res.status(200).json({ ticket: { event: 'Concert', price: 50 } });
     });

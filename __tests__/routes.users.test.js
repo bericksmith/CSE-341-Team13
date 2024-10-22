@@ -9,12 +9,12 @@ app.use('/users', userRouter);
 
 jest.mock('../controllers/userController');
 
-describe('User Routes - GET Endpoints', () => {
+describe('User Routes - GET Endpoints - Team 13', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should call getUsers controller on GET /users', async () => {
+  it('call getUsers controller on GET /users', async () => {
     userController.getUsers.mockImplementation((req, res) => {
       res.status(200).json({ users: [{ fname: 'John', lname: 'Doe' }] });
     });
@@ -26,7 +26,7 @@ describe('User Routes - GET Endpoints', () => {
     expect(userController.getUsers).toHaveBeenCalledTimes(1);
   });
 
-  it('should call getUserById controller on GET /users/:id', async () => {
+  it('call getUserById controller on GET /users/:id', async () => {
     userController.getUserById.mockImplementation((req, res) => {
       res.status(200).json({ user: { fname: 'Jane', lname: 'Smith' } });
     });
