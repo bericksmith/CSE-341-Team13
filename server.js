@@ -34,14 +34,19 @@ MongoClient.connect(process.env.MONGO_URI)
         app.use('/users', require('./routes/users'));
         app.use('/tickets', require('./routes/tickets'));
         app.use('/events', require('./routes/events'));
-        app.use('/venues', require('./routes/venues'))
+        app.use('/venues', require('./routes/venues'));
 
         app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-        app.listen(port, () => {
-            console.log(`Server is running on http://localhost:${port}`);
-        });
+        // Only start the server if not in test mode
+        if (process.env.NODE_ENV !== 'test') {
+            app.listen(port, () => {
+                console.log(`Server is running on http://localhost:${port}`);
+            });
+        }
     })
     .catch(error => {
         console.error('Failed to connect to MongoDB:', error);
     });
+
+module.exports = app;
