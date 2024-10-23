@@ -30,10 +30,10 @@ const mockResponse = () => {
   return res;
 };
 
-describe('Ticket Controller - GET Endpoints', () => {
+describe('Ticket Controller - GET Endpoints - Team 13', () => {
 
   describe('getTickets', () => {
-    it('should return a list of tickets with status 200', async () => {
+    it('return a list of tickets with status 200', async () => {
       const mockTickets = [
         { _id: '1', ticket_number: '123456789', price: 50, status: 'active' },
         { _id: '2', ticket_number: '987654321', price: 60, status: 'active' }
@@ -50,7 +50,7 @@ describe('Ticket Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith(mockTickets);
     });
 
-    it('should return 500 if an error occurs', async () => {
+    it('return 500 if an error occurs', async () => {
       const req = mockRequest();
       const res = mockResponse();
 
@@ -67,7 +67,7 @@ describe('Ticket Controller - GET Endpoints', () => {
   });
 
   describe('getTicketById', () => {
-    it('should return a ticket by ID with status 200', async () => {
+    it('return a ticket by ID with status 200', async () => {
       const mockTicket = { _id: new ObjectId('507f1f77bcf86cd799439011'), ticket_number: '123456789', price: 50, status: 'active' };
 
       const req = mockRequest();
@@ -82,7 +82,7 @@ describe('Ticket Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith(mockTicket);
     });
 
-    it('should return 400 for invalid ObjectId format', async () => {
+    it('return 400 for invalid ObjectId format', async () => {
       const req = mockRequest();
       const res = mockResponse();
       req.params.id = 'invalid-id';
@@ -93,7 +93,7 @@ describe('Ticket Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith({ message: 'Invalid ticket ID format' });
     });
 
-    it('should return 404 if ticket is not found', async () => {
+    it('return 404 if ticket is not found', async () => {
       const req = mockRequest();
       const res = mockResponse();
       req.params.id = '507f1f77bcf86cd799439011';
@@ -106,7 +106,7 @@ describe('Ticket Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith({ message: 'Ticket not found' });
     });
 
-    it('should return 500 if an error occurs', async () => {
+    it('return 500 if an error occurs', async () => {
       const req = mockRequest();
       const res = mockResponse();
       req.params.id = '507f1f77bcf86cd799439011';

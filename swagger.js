@@ -69,9 +69,9 @@ const doc = {
             properties: {
                 _id: { type: 'string', description: 'Event ID' },
                 name: { type: 'string', description: 'Event name' },
-                description: { type: 'string', description: 'Event description' },
-                date: { type: 'string', format: 'date-time', description: 'Event date' },
                 location: { type: 'string', description: 'Event location' },
+                date: { type: 'string', format: 'date-time', description: 'Event date' },
+                time: { type: 'string', description: 'hh:mm AM/PM (12-hour format)' },
                 type: { type: 'string', description: 'Event type (conference, concert)' }
             }
         },
@@ -100,8 +100,12 @@ const doc = {
                 availability: { type: 'boolean', description: 'Indicates if the speaker is available for the event', example: true },
                 location: { type: 'string', description: 'Location of the speaker', example: 'Austin, TX' }
             }
-        }     
-        
+        },                 
+        Venues: {
+            type: 'object',
+            properties: {
+            }
+        }
     }
 };
 

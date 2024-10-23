@@ -2,13 +2,13 @@
   "swagger": "2.0",
   "info": {
     "title": "Event Management System API - CSE 341",
-    "description": "Team 13 Final Project - API for managing events\n\n**Contributors**:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros\n\nThis API provides various endpoints for accessing resources. \n\n**Authentication Required**: Endpoints marked with a padlock icon are restricted and can only be accessed after logging in via GitHub using OAuth. \n\n**OAuth Login:** Authentication is handled via GitHub OAuth. To connect, use the following endpoints:\n\n- **Login**: http://localhost:5000/github - Initiates the OAuth process with GitHub. \n- **Logout**: http://localhost:5000/logout - Ends your session.",
+    "description": "Team 13 Final Project - API for managing events\n\n**Contributors**:\n- Berick Smith\n- Lenora Stevens\n- Ramon Felipe Castano\n- Livia Costa Lira de Medeiros\n\nThis API provides various endpoints for accessing resources. \n\n**Authentication Required**: Endpoints marked with a padlock icon are restricted and can only be accessed after logging in via GitHub using OAuth. \n\n**OAuth Login:** Authentication is handled via GitHub OAuth. To connect, use the following endpoints:\n\n- **Login**: https://cse-341-team13.onrender.com/github - Initiates the OAuth process with GitHub. \n- **Logout**: https://cse-341-team13.onrender.com/logout - Ends your session.",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "cse-341-team13.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "securityDefinitions": {
     "OAuth2": {
@@ -1360,7 +1360,7 @@
                 }
               }
             },
-            "description": {
+            "location": {
               "type": "object",
               "properties": {
                 "type": {
@@ -1369,7 +1369,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Event description"
+                  "example": "Event location"
                 }
               }
             },
@@ -1390,7 +1390,7 @@
                 }
               }
             },
-            "location": {
+            "time": {
               "type": "object",
               "properties": {
                 "type": {
@@ -1399,7 +1399,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Event location"
+                  "example": "hh:mm AM/PM (12-hour format)"
                 }
               }
             },
@@ -1693,6 +1693,19 @@
               }
             }
           }
+        }
+      }
+    },
+    "Venues": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "object"
+        },
+        "properties": {
+          "type": "object",
+          "properties": {}
         }
       }
     }

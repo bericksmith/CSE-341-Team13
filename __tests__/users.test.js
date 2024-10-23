@@ -31,10 +31,10 @@ const mockResponse = () => {
   return res;
 };
 
-describe('User Controller - GET Endpoints', () => {
+describe('User Controller - GET Endpoints - Team 13', () => {
 
   describe('getUsers', () => {
-    it('should return a list of users with status 200', async () => {
+    it('return a list of users with status 200', async () => {
       const mockUsers = [
         { _id: '1', fname: 'John', lname: 'Doe', email: 'john.doe@example.com' },
         { _id: '2', fname: 'Jane', lname: 'Smith', email: 'jane.smith@example.com' }
@@ -51,7 +51,7 @@ describe('User Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith(mockUsers);
     });
 
-    it('should return 500 if an error occurs', async () => {
+    it('return 500 if an error occurs', async () => {
       const req = mockRequest();
       const res = mockResponse();
 
@@ -68,7 +68,7 @@ describe('User Controller - GET Endpoints', () => {
   });
 
   describe('getUserById', () => {
-    it('should return a user by ID with status 200', async () => {
+    it('return a user by ID with status 200', async () => {
       const mockUser = { _id: new ObjectId('507f1f77bcf86cd799439011'), fname: 'John', lname: 'Doe', email: 'john.doe@example.com' };
 
       const req = mockRequest();
@@ -83,7 +83,7 @@ describe('User Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith(mockUser);
     });
 
-    it('should return 400 for invalid ObjectId format', async () => {
+    it('return 400 for invalid ObjectId format', async () => {
       const req = mockRequest();
       const res = mockResponse();
       req.params.id = 'invalid-id';
@@ -94,7 +94,7 @@ describe('User Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith({ message: 'Invalid user ID format' });
     });
 
-    it('should return 404 if user is not found', async () => {
+    it('return 404 if user is not found', async () => {
       const req = mockRequest();
       const res = mockResponse();
       req.params.id = '507f1f77bcf86cd799439011';
@@ -107,7 +107,7 @@ describe('User Controller - GET Endpoints', () => {
       expect(res.json).toHaveBeenCalledWith({ message: 'User not found' });
     });
 
-    it('should return 500 if an error occurs', async () => {
+    it('return 500 if an error occurs', async () => {
       const req = mockRequest();
       const res = mockResponse();
       req.params.id = '507f1f77bcf86cd799439011';
