@@ -1,43 +1,61 @@
 const request = require('supertest');
-const express = require('express');
-const ticketRouter = require('../routes/tickets');
-const ticketController = require('../controllers/ticketsController');
+const app = require('../server');
 
-const app = express();
-app.use(express.json());
-app.use('/tickets', ticketRouter);
+// Mock the MongoDB client connection
+jest.mock('mongodb', () => {
+    const actualMongo = jest.requireActual('mongodb');
+    const { ObjectId } = actualMongo;
+    return {
+        ...actualMongo,
+        MongoClient: {
+            connect: jest.fn(() => Promise.resolve({
+                db: jest.fn().mockReturnValue({
+                    collection: jest.fn().mockReturnValue({
+                        find: jest.fn().mockReturnThis(),
+                        toArray: jest.fn().mockResolvedValue([
+                            { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' },
+                            { _id: new ObjectId('507f1f77bcf86cd799439021'), event_id: '54321', user_id: '507f1f77bcf86cd799439012', ticket_number: 'B002', price: 200, status: 'valid' }
+                        ]),
+                        findOne: jest.fn().mockImplementation((query) => {
+                            if (query._id.equals(new ObjectId('507f1f77bcf86cd799439020'))) {
+                                return { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' };
+                            }
+                            return null;
+                        })
+                    })
+                })
+            }))
+        }
+    };
+});
 
-jest.mock('../controllers/ticketsController');
-
-describe('Ticket Routes - GET Endpoints - Team 13', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('call getTickets controller on GET /tickets', async () => {
-    ticketController.getTickets.mockImplementation((req, res) => {
-      res.status(200).json({ tickets: [{ event: 'Concert', price: 50 }] });
+describe('Ticket API GET Endpoints', () => {
+    test('GET /tickets should return a list of tickets', async () => {
+        const res = await request(app).get('/tickets');
+        expect(res.statusCode).toBe(200); 
+        expect(res.header['content-type']).toBe('application/json; charset=utf-8');
+        expect(Array.isArray(res.body)).toBe(true);
     });
 
-    const res = await request(app).get('/tickets');
-
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('tickets');
-    expect(ticketController.getTickets).toHaveBeenCalledTimes(1);
-  });
-
-  it('call getTicketById controller on GET /tickets/:id', async () => {
-    ticketController.getTicketById.mockImplementation((req, res) => {
-      res.status(200).json({ ticket: { event: 'Concert', price: 50 } });
+    test('GET /tickets/:id should return a single ticket by ID', async () => {
+        const ticketId = '507f1f77bcf86cd799439020';
+        const res = await request(app).get(`/tickets/${ticketId}`);
+        expect(res.statusCode).toBe(200);
+        expect(res.header['content-type']).toBe('application/json; charset=utf-8');
+        expect(res.body).toHaveProperty('_id', ticketId);
     });
 
-    const res = await request(app).get('/tickets/1');
+    test('GET /tickets/:id should return 400 for invalid ticket ID format', async () => {
+        const invalidId = 'invalid-id';
+        const res = await request(app).get(`/tickets/${invalidId}`);
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toHaveProperty('message', 'Invalid ticket ID format');
+    });
 
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('ticket');
-    expect(ticketController.getTicketById).toHaveBeenCalledTimes(1);
-
-    const req = ticketController.getTicketById.mock.calls[0][0];
-    expect(req.params).toEqual({ id: '1' });
-  });
+    test('GET /tickets/:id should return 404 for a non-existing ticket', async () => {
+        const nonExistentId = '507f1f77bcf86cd799439099';
+        const res = await request(app).get(`/tickets/${nonExistentId}`);
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toHaveProperty('message', 'Ticket not found');
+    });
 });

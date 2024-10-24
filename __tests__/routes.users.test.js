@@ -1,43 +1,68 @@
 const request = require('supertest');
-const express = require('express');
-const userRouter = require('../routes/users');
-const userController = require('../controllers/userController');
+const app = require('../server');
 
-const app = express();
-app.use(express.json());
-app.use('/users', userRouter);
+jest.mock('mongodb', () => {
+    const actualMongo = jest.requireActual('mongodb');
+    return {
+        MongoClient: {
+            connect: jest.fn().mockResolvedValue({
+                db: jest.fn().mockReturnValue({
+                    collection: jest.fn().mockReturnThis(),
+                    find: jest.fn().mockReturnThis(),
+                    findOne: jest.fn(),
+                    toArray: jest.fn(),
+                }),
+            }),
+        },
+        ObjectId: actualMongo.ObjectId,
+    };
+});
 
-jest.mock('../controllers/userController');
+describe('User API GET Endpoints', () => {
+    test('GET /users should return a list of users', async () => {
+        const mockUsers = [
+            { _id: '1', fname: 'John', lname: 'Doe', email: 'john.doe@example.com' },
+            { _id: '2', fname: 'Jane', lname: 'Smith', email: 'jane.smith@example.com' }
+        ];
+        
+        const db = app.locals.db;
+        db.collection().find().toArray.mockResolvedValue(mockUsers);
 
-describe('User Routes - GET Endpoints - Team 13', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('call getUsers controller on GET /users', async () => {
-    userController.getUsers.mockImplementation((req, res) => {
-      res.status(200).json({ users: [{ fname: 'John', lname: 'Doe' }] });
+        const res = await request(app).get('/users');
+        expect(res.statusCode).toBe(200);
+        expect(res.header['content-type']).toBe('application/json; charset=utf-8');
+        expect(Array.isArray(res.body)).toBe(true);
+        expect(res.body.length).toBeGreaterThan(0);
     });
 
-    const res = await request(app).get('/users');
+    test('GET /users/:id should return a single user by ID', async () => {
+        const mockUser = { _id: '507f1f77bcf86cd799439011', fname: 'John', lname: 'Doe', email: 'john.doe@example.com' };
 
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('users');
-    expect(userController.getUsers).toHaveBeenCalledTimes(1);
-  });
+        const db = app.locals.db;
+        db.collection().findOne.mockResolvedValue(mockUser);
 
-  it('call getUserById controller on GET /users/:id', async () => {
-    userController.getUserById.mockImplementation((req, res) => {
-      res.status(200).json({ user: { fname: 'Jane', lname: 'Smith' } });
+        const userId = '507f1f77bcf86cd799439011'; 
+        const res = await request(app).get(`/users/${userId}`); 
+        expect(res.statusCode).toBe(200); 
+        expect(res.header['content-type']).toBe('application/json; charset=utf-8'); 
+        expect(res.body).toHaveProperty('_id', userId); 
     });
 
-    const res = await request(app).get('/users/1');
+    test('GET /users/:id should return 400 for invalid user ID format', async () => {
+        const invalidId = 'invalid-id'; 
+        const res = await request(app).get(`/users/${invalidId}`);
+        expect(res.statusCode).toBe(400); 
+        expect(res.body).toHaveProperty('message', 'Invalid user ID format');
+    });
 
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('user');
-    expect(userController.getUserById).toHaveBeenCalledTimes(1);
+    test('GET /users/:id should return 404 for a non-existing user', async () => {
+        const nonExistentId = '507f1f77bcf86cd799439012';
 
-    const req = userController.getUserById.mock.calls[0][0];
-    expect(req.params).toEqual({ id: '1' });
-  });
+        const db = app.locals.db;
+        db.collection().findOne.mockResolvedValue(null);
+
+        const res = await request(app).get(`/users/${nonExistentId}`);
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toHaveProperty('message', 'User not found');
+    });
 });
