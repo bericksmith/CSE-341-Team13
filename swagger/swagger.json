@@ -1360,7 +1360,7 @@
                 }
               }
             },
-            "description": {
+            "location": {
               "type": "object",
               "properties": {
                 "type": {
@@ -1369,7 +1369,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Event description"
+                  "example": "Event location"
                 }
               }
             },
@@ -1390,7 +1390,7 @@
                 }
               }
             },
-            "location": {
+            "time": {
               "type": "object",
               "properties": {
                 "type": {
@@ -1399,7 +1399,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Event location"
+                  "example": "hh:mm AM/PM (12-hour format)"
                 }
               }
             },
