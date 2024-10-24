@@ -1,0 +1,32 @@
+### GET Events
+GET https://cse-341-team13.onrender.com/events HTTP/1.1
+
+### GET Single Event
+GET https://cse-341-team13.onrender.com/events/670de14cd436d85952af4c3f HTTP/1.1
+
+### Create a new event
+POST https://cse-341-team13.onrender.com/events HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "New Years Celebration",
+    "location": "College Station",
+    "date": "2024-12-31",
+    "time": "10:00 PM",
+    "venue": "Clock Tower"
+}
+
+### Update an event by ID
+PUT https://cse-341-team13.onrender.com/events/670de14cd436d85952af4c3f HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "New Years Celebration",
+    "location": "College Station",
+    "date": "2024-12-31",
+    "time": "09:00 PM",
+    "venue": "Clock Tower Plaze"
+}
+
+### Delete an event by ID
+DELETE https://cse-341-team13.onrender.com/events/670de14cd436d85952af4c3f HTTP/1.1
