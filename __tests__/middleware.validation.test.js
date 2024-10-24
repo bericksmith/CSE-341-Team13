@@ -1,7 +1,6 @@
 const { validateUser, validateTicket, validateEvent, validationResult } = require('../middleware/validation');
 const { body } = require('express-validator');
 
-// Manually mock request and response objects
 const mockRequest = () => {
     return {
         body: {},
@@ -17,7 +16,6 @@ const mockResponse = () => {
     return res;
 };
 
-// Utility function to run middleware validators
 const runValidators = async (req, res, middlewares) => {
     for (const middleware of middlewares) {
         await middleware(req, res, () => {});
