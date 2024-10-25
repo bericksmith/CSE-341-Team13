@@ -24,7 +24,7 @@ exports.getVenueById = async (req, res) => {
       #swagger.tags = ['Venues']
       #swagger.summary = 'GET a venue by ID'
       #swagger.description = 'This endpoint returns a single venue based on the provided ID.'
-      #swagger.parameters['id'] = { description: 'venue ID', required: true }
+      #swagger.parameters['id'] = { description: 'venue ID', required: true, example: '507f1f77bcf86cd799439024' }
     */
     const db = req.app.locals.db;
     const { id } = req.params;
@@ -56,13 +56,13 @@ exports.createVenue = async (req, res) => {
             description: 'Venue data',
             required: true,
             schema: {
-              $name: '',
-              $address: '',
-              $city: '',
-              $state: '',
-              $postal: '',
-              $capacity: '',
-              $created_at: ''
+              $name: 'Sunshine Theater',
+              $address: '123 Main St',
+              $city: 'Los Angeles',
+              $state: 'CA',
+              $postal: '90001',
+              $capacity: 500,
+              $created_at: '2024-05-15T10:45:00Z'
             }
         }
       #swagger.security = [{ "OAuth2": [] }]
@@ -96,17 +96,17 @@ exports.updateVenue = async (req, res) => {
       #swagger.tags = ['Venues']
       #swagger.summary = 'UPDATE a venue by ID (OAuth required)'
       #swagger.description = 'This endpoint updates a venue based on the provided ID and data.'
-      #swagger.parameters['id'] = { description: 'Venue ID', required: true }
+      #swagger.parameters['id'] = { description: 'Venue ID', required: true, example: '507f1f77bcf86cd799439024' }
       #swagger.parameters['body'] = {
             in: 'body',
             description: 'Updated venue data',
             schema: {
-              name: '',
-              address: '',
-              city: '',
-              state: '',
-              postal: '',
-              capacity: ''
+              name: 'Sunshine Theater',
+              address: '123 Main St',
+              city: 'Los Angeles',
+              state: 'CA',
+              postal: '90001',
+              capacity: 600
             }
         }
       #swagger.security = [{ "OAuth2": [] }]
@@ -142,7 +142,7 @@ exports.deleteVenue = async (req, res) => {
       #swagger.tags = ['Venues']
       #swagger.summary = 'DELETE a venue by ID (OAuth required)'
       #swagger.description = 'This endpoint deletes a venue based on the provided ID.'
-      #swagger.parameters['id'] = { description: 'Venue ID', required: true }
+      #swagger.parameters['id'] = { description: 'Venue ID', required: true, example: '507f1f77bcf86cd799439024' }
       #swagger.security = [{ "OAuth2": [] }]
     */
     const db = req.app.locals.db;

@@ -727,7 +727,7 @@
           "Speakers"
         ],
         "summary": "CREATE a speaker (OAuth required)",
-        "description": "Creates a new speaker given the required data.<br>  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br>   Returns an object containing the id created.",
+        "description": "Creates a new speaker given the required data.<br>\r  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br> \r  Returns an object containing the id created.",
         "parameters": [
           {
             "name": "body",
@@ -814,9 +814,6 @@
         ],
         "summary": "GET a speaker by ID",
         "description": "Gets a single speaker given the id",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -998,31 +995,31 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": ""
+                  "example": "Sunshine Theater"
                 },
                 "address": {
                   "type": "string",
-                  "example": ""
+                  "example": "123 Main St"
                 },
                 "city": {
                   "type": "string",
-                  "example": ""
+                  "example": "Los Angeles"
                 },
                 "state": {
                   "type": "string",
-                  "example": ""
+                  "example": "CA"
                 },
                 "postal": {
                   "type": "string",
-                  "example": ""
+                  "example": "90001"
                 },
                 "capacity": {
-                  "type": "string",
-                  "example": ""
+                  "type": "number",
+                  "example": 500
                 },
                 "created_at": {
                   "type": "string",
-                  "example": ""
+                  "example": "2024-05-15T10:45:00Z"
                 }
               },
               "required": [
@@ -1071,7 +1068,8 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "venue ID"
+            "description": "venue ID",
+            "example": "507f1f77bcf86cd799439024"
           }
         ],
         "responses": {
@@ -1101,7 +1099,8 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "Venue ID"
+            "description": "Venue ID",
+            "example": "507f1f77bcf86cd799439024"
           },
           {
             "name": "body",
@@ -1112,27 +1111,27 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": ""
+                  "example": "Sunshine Theater"
                 },
                 "address": {
                   "type": "string",
-                  "example": ""
+                  "example": "123 Main St"
                 },
                 "city": {
                   "type": "string",
-                  "example": ""
+                  "example": "Los Angeles"
                 },
                 "state": {
                   "type": "string",
-                  "example": ""
+                  "example": "CA"
                 },
                 "postal": {
                   "type": "string",
-                  "example": ""
+                  "example": "90001"
                 },
                 "capacity": {
-                  "type": "string",
-                  "example": ""
+                  "type": "number",
+                  "example": 600
                 }
               }
             }
@@ -1173,7 +1172,8 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "Venue ID"
+            "description": "Venue ID",
+            "example": "507f1f77bcf86cd799439024"
           }
         ],
         "responses": {
