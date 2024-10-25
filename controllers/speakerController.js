@@ -47,17 +47,17 @@ exports.getSingleSpeaker = async (req, res) => {
 
     try {
         const result = await db.collection('speakers').findOne({ _id: speakerId });
-        console.log(result);
+        // console.log(result);
         if (!result) {
             return res.status(404).json({ error: 'Speaker not found' });
         }
 
-        res.setHeader('Content-Type', 'application/json');
+        // res.setHeader('Content-Type', 'application/json');
         res.status(200).json(result);
 
     } catch (error) {
         console.error('Database Error getting single speaker: ', error);
-        res.setHeader('Content-Type', 'application/json');
+        // res.setHeader('Content-Type', 'application/json');
         res.status(500).json({ error: 'Server Error' });
     }
 }
@@ -130,7 +130,7 @@ exports.createSpeaker = async (req, res) => {
 
     try {
         const response = await db.collection('speakers').insertOne(speaker);
-        if (response.acknowledged) {
+        if (response.insertedId) {
             res.status(201).json({ _id: response.insertedId });
         }
         else {
@@ -291,7 +291,7 @@ exports.deleteSpeaker = async (req, res) => {
             res.status(204).send();
         }
         else {
-            console.log("Error deleting speaker: ", response);
+            // console.log("Error deleting speaker: ", response);
             res.status(500).json({ error: "Failed deleting speaker" });
         }
     } catch (error) {
