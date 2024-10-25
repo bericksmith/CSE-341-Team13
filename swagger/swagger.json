@@ -727,7 +727,7 @@
           "Speakers"
         ],
         "summary": "CREATE a speaker (OAuth required)",
-        "description": "Creates a new speaker given the required data.<br>\r  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br> \r  Returns an object containing the id created.",
+        "description": "Creates a new speaker given the required data.<br>  Requires the following fields: name, bio, photo_url, email, event, specialization, availability, location.<br>   Returns an object containing the id created.",
         "parameters": [
           {
             "name": "body",
@@ -1529,7 +1529,7 @@
         }
       }
     },
-    "Speakers": {
+    "Speaker": {
       "type": "object",
       "properties": {
         "type": {
@@ -1538,7 +1538,161 @@
         },
         "properties": {
           "type": "object",
-          "properties": {}
+          "properties": {
+            "_id": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Speaker ID"
+                }
+              }
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Full name of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Ana Maria Lopez"
+                }
+              }
+            },
+            "bio": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Brief biography of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Ana Maria is a renowned nutritionist with over 10 years of experience promoting healthy lifestyles. She has participated in multiple conferences on health and sports."
+                }
+              }
+            },
+            "photo_url": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "URL of the speaker's profile photo"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "https://example.com/ana_lopez.jpg"
+                }
+              }
+            },
+            "email": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "example": "email"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Email address of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "ana.lopez@example.com"
+                }
+              }
+            },
+            "event": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Event ID where the speaker is participating"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "670de14cd436d85952af4c3f"
+                }
+              }
+            },
+            "specialization": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Area of expertise or specialization of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Sports Nutrition"
+                }
+              }
+            },
+            "availability": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Indicates if the speaker is available for the event"
+                },
+                "example": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            },
+            "location": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Location of the speaker"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Austin, TX"
+                }
+              }
+            }
+          }
         }
       }
     },

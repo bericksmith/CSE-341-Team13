@@ -86,12 +86,21 @@ const doc = {
                 date: { type: 'string', format: 'date-time', description: 'Date of ticket creation or purchase' },
                 status: { type: 'string', description: 'Ticket status (active, cancelled)' }
             }
-        },        
-        Speakers: {
+        },
+        Speaker: {
             type: 'object',
             properties: {
+                _id: { type: 'string', description: 'Speaker ID' },
+                name: { type: 'string', description: 'Full name of the speaker', example: 'Ana Maria Lopez' },
+                bio: { type: 'string', description: 'Brief biography of the speaker', example: 'Ana Maria is a renowned nutritionist with over 10 years of experience promoting healthy lifestyles. She has participated in multiple conferences on health and sports.' },
+                photo_url: { type: 'string', description: 'URL of the speaker\'s profile photo', example: 'https://example.com/ana_lopez.jpg' },
+                email: { type: 'string', format: 'email', description: 'Email address of the speaker', example: 'ana.lopez@example.com' },
+                event: { type: 'string', description: 'Event ID where the speaker is participating', example: '670de14cd436d85952af4c3f' },
+                specialization: { type: 'string', description: 'Area of expertise or specialization of the speaker', example: 'Sports Nutrition' },
+                availability: { type: 'boolean', description: 'Indicates if the speaker is available for the event', example: true },
+                location: { type: 'string', description: 'Location of the speaker', example: 'Austin, TX' }
             }
-        },        
+        },                 
         Venues: {
             type: 'object',
             properties: {
