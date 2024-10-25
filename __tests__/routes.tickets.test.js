@@ -1,32 +1,36 @@
+require('dotenv').config();
+
 const request = require('supertest');
+const { MongoClient, ObjectId } = require('mongodb');
 const app = require('../server');
 
-// Mock the MongoDB client connection
-jest.mock('mongodb', () => {
-    const actualMongo = jest.requireActual('mongodb');
-    const { ObjectId } = actualMongo;
-    return {
-        ...actualMongo,
-        MongoClient: {
-            connect: jest.fn(() => Promise.resolve({
-                db: jest.fn().mockReturnValue({
-                    collection: jest.fn().mockReturnValue({
-                        find: jest.fn().mockReturnThis(),
-                        toArray: jest.fn().mockResolvedValue([
-                            { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' },
-                            { _id: new ObjectId('507f1f77bcf86cd799439021'), event_id: '54321', user_id: '507f1f77bcf86cd799439012', ticket_number: 'B002', price: 200, status: 'valid' }
-                        ]),
-                        findOne: jest.fn().mockImplementation((query) => {
-                            if (query._id.equals(new ObjectId('507f1f77bcf86cd799439020'))) {
-                                return { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' };
-                            }
-                            return null;
-                        })
-                    })
-                })
-            }))
-        }
-    };
+let connection;
+let db;
+
+beforeAll(async () => {
+    try {
+        connection = await MongoClient.connect(process.env.MONGO_URI);
+
+        db = connection.db('finalproject');
+        app.locals.db = db;
+
+        await db.collection('tickets').insertMany([
+            { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' },
+            { _id: new ObjectId('507f1f77bcf86cd799439021'), event_id: '54321', user_id: '507f1f77bcf86cd799439012', ticket_number: 'B002', price: 200, status: 'valid' }
+        ]);
+    } catch (error) {
+        console.error('Failed to connect to MongoDB:', error);
+        throw error;
+    }
+});
+
+afterAll(async () => {
+    if (db) {
+        await db.collection('tickets').deleteMany({});
+    }
+    if (connection) {
+        await connection.close();
+    }
 });
 
 describe('Ticket API GET Endpoints', () => {

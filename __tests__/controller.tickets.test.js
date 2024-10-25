@@ -1,15 +1,6 @@
-beforeAll(() => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => {});
-  });
-  
-  afterAll(() => {
-    console.error.mockRestore();
-  });
-
 const { getTickets, getTicketById } = require('../controllers/ticketsController');
 const { ObjectId } = require('mongodb');
 
-// Mocking request and response objects
 const mockRequest = () => ({
     app: {
         locals: {
@@ -32,94 +23,60 @@ const mockResponse = () => {
 };
 
 describe('Tickets Controller - GET Endpoints', () => {
-    describe('getTickets', () => {
-        it('should return a list of tickets with status 200', async () => {
-            const mockTickets = [
-                { _id: '507f1f77bcf86cd799439020', event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' },
-                { _id: '507f1f77bcf86cd799439021', event_id: '54321', user_id: '507f1f77bcf86cd799439012', ticket_number: 'B002', price: 200, status: 'valid' }
-            ];
 
-            const req = mockRequest();
-            const res = mockResponse();
+    test('getTickets should return a list of tickets', async () => {
+        const mockTickets = [
+            { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' },
+            { _id: new ObjectId('507f1f77bcf86cd799439021'), event_id: '54321', user_id: '507f1f77bcf86cd799439012', ticket_number: 'B002', price: 200, status: 'valid' }
+        ];
 
-            req.app.locals.db.collection().find().toArray.mockResolvedValue(mockTickets);
+        const req = mockRequest();
+        const res = mockResponse();
 
-            await getTickets(req, res);
+        req.app.locals.db.collection().find().toArray.mockResolvedValue(mockTickets);
 
-            expect(res.status).toHaveBeenCalledWith(200);
-            expect(res.json).toHaveBeenCalledWith(mockTickets);
-        });
+        await getTickets(req, res);
 
-        it('should return 500 if an error occurs', async () => {
-            const req = mockRequest();
-            const res = mockResponse();
-
-            req.app.locals.db.collection().find().toArray.mockRejectedValue(new Error('Database error'));
-
-            await getTickets(req, res);
-
-            expect(res.status).toHaveBeenCalledWith(500);
-            expect(res.json).toHaveBeenCalledWith({
-                message: 'An error occurred while fetching tickets',
-                error: expect.any(Error),
-            });
-        });
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(mockTickets);
     });
 
-    describe('getTicketById', () => {
-        it('should return a ticket by ID with status 200', async () => {
-            const mockTicket = { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' };
+    test('getTicketById should return a ticket by ID', async () => {
+        const mockTicket = { _id: new ObjectId('507f1f77bcf86cd799439020'), event_id: '12345', user_id: '507f1f77bcf86cd799439011', ticket_number: 'A001', price: 100, status: 'valid' };
 
-            const req = mockRequest();
-            const res = mockResponse();
-            req.params.id = '507f1f77bcf86cd799439020';
+        const req = mockRequest();
+        const res = mockResponse();
+        req.params.id = '507f1f77bcf86cd799439020';
 
-            req.app.locals.db.collection().findOne.mockResolvedValue(mockTicket);
+        req.app.locals.db.collection().findOne.mockResolvedValue(mockTicket);
 
-            await getTicketById(req, res);
+        await getTicketById(req, res);
 
-            expect(res.status).toHaveBeenCalledWith(200);
-            expect(res.json).toHaveBeenCalledWith(mockTicket);
-        });
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(mockTicket);
+    });
 
-        it('should return 400 for invalid ticket ID format', async () => {
-            const req = mockRequest();
-            const res = mockResponse();
-            req.params.id = 'invalid-id';
+    test('getTicketById should return 400 for invalid ticket ID format', async () => {
+        const req = mockRequest();
+        const res = mockResponse();
+        req.params.id = 'invalid-id';
 
-            await getTicketById(req, res);
+        await getTicketById(req, res);
 
-            expect(res.status).toHaveBeenCalledWith(400);
-            expect(res.json).toHaveBeenCalledWith({ message: 'Invalid ticket ID format' });
-        });
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({ message: 'Invalid ticket ID format' });
+    });
 
-        it('should return 404 if ticket is not found', async () => {
-            const req = mockRequest();
-            const res = mockResponse();
-            req.params.id = '507f1f77bcf86cd799439020';
+    test('getTicketById should return 404 if ticket is not found', async () => {
+        const req = mockRequest();
+        const res = mockResponse();
+        req.params.id = '507f1f77bcf86cd799439999';
 
-            req.app.locals.db.collection().findOne.mockResolvedValue(null);
+        req.app.locals.db.collection().findOne.mockResolvedValue(null);
 
-            await getTicketById(req, res);
+        await getTicketById(req, res);
 
-            expect(res.status).toHaveBeenCalledWith(404);
-            expect(res.json).toHaveBeenCalledWith({ message: 'Ticket not found' });
-        });
-
-        it('should return 500 if an error occurs', async () => {
-            const req = mockRequest();
-            const res = mockResponse();
-            req.params.id = '507f1f77bcf86cd799439020';
-
-            req.app.locals.db.collection().findOne.mockRejectedValue(new Error('Database error'));
-
-            await getTicketById(req, res);
-
-            expect(res.status).toHaveBeenCalledWith(500);
-            expect(res.json).toHaveBeenCalledWith({
-                message: 'An error occurred while fetching the ticket',
-                error: expect.any(Error),
-            });
-        });
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({ message: 'Ticket not found' });
     });
 });

@@ -1,61 +1,82 @@
-const request = require('supertest');
-const app = require('../server');
+const { getUsers, getUserById } = require('../controllers/userController');
+const { ObjectId } = require('mongodb');
 
-// Mock the MongoDB client connection
-jest.mock('mongodb', () => {
-    const actualMongo = jest.requireActual('mongodb');
-    const { ObjectId } = actualMongo;
-    return {
-        ...actualMongo,
-        MongoClient: {
-            connect: jest.fn(() => Promise.resolve({
-                db: jest.fn().mockReturnValue({
-                    collection: jest.fn().mockReturnValue({
-                        find: jest.fn().mockReturnThis(),
-                        toArray: jest.fn().mockResolvedValue([
-                            { _id: new ObjectId('507f1f77bcf86cd799439011'), fname: 'John', lname: 'Doe', email: 'john.doe@example.com' },
-                            { _id: new ObjectId('507f1f77bcf86cd799439012'), fname: 'Jane', lname: 'Smith', email: 'jane.smith@example.com' }
-                        ]),
-                        findOne: jest.fn().mockImplementation((query) => {
-                            if (query._id.equals(new ObjectId('507f1f77bcf86cd799439011'))) {
-                                return { _id: new ObjectId('507f1f77bcf86cd799439011'), fname: 'John', lname: 'Doe', email: 'john.doe@example.com' };
-                            }
-                            return null;
-                        })
-                    })
-                })
-            }))
-        }
-    };
+const mockRequest = () => ({
+    app: {
+        locals: {
+            db: {
+                collection: jest.fn().mockReturnThis(),
+                find: jest.fn().mockReturnThis(),
+                toArray: jest.fn(),
+                findOne: jest.fn(),
+            },
+        },
+    },
+    params: {}
 });
 
-describe('User API GET Endpoints', () => {
-    test('GET /users should return a list of users', async () => {
-        const res = await request(app).get('/users');
-        expect(res.statusCode).toBe(200);
-        expect(res.header['content-type']).toBe('application/json; charset=utf-8');
-        expect(Array.isArray(res.body)).toBe(true);
+const mockResponse = () => {
+    const res = {};
+    res.status = jest.fn().mockReturnValue(res);
+    res.json = jest.fn().mockReturnValue(res);
+    return res;
+};
+
+describe('User Controller', () => {
+
+    test('getAllUsers should return a list of users', async () => {
+        const mockUsers = [
+            { _id: new ObjectId('507f1f77bcf86cd799439011'), fname: 'John', lname: 'Doe', email: 'john.doe@example.com' },
+            { _id: new ObjectId('507f1f77bcf86cd799439012'), fname: 'Jane', lname: 'Smith', email: 'jane.smith@example.com' }
+        ];
+
+        const req = mockRequest();
+        const res = mockResponse();
+
+        req.app.locals.db.collection().find().toArray.mockResolvedValue(mockUsers);
+
+        await getUsers(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(mockUsers);
     });
 
-    test('GET /users/:id should return a single user by ID', async () => {
-        const userId = '507f1f77bcf86cd799439011';
-        const res = await request(app).get(`/users/${userId}`);
-        expect(res.statusCode).toBe(200);
-        expect(res.header['content-type']).toBe('application/json; charset=utf-8');
-        expect(res.body).toHaveProperty('_id', userId);
+    test('getUserById should return a single user by ID', async () => {
+        const mockUser = { _id: new ObjectId('507f1f77bcf86cd799439011'), fname: 'John', lname: 'Doe', email: 'john.doe@example.com' };
+
+        const req = mockRequest();
+        const res = mockResponse();
+        req.params.id = '507f1f77bcf86cd799439011';
+
+        req.app.locals.db.collection().findOne.mockResolvedValue(mockUser);
+
+        await getUserById(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(mockUser);
     });
 
-    test('GET /users/:id should return 400 for invalid user ID format', async () => {
-        const invalidId = 'invalid-id';
-        const res = await request(app).get(`/users/${invalidId}`);
-        expect(res.statusCode).toBe(400);
-        expect(res.body).toHaveProperty('message', 'Invalid user ID format');
+    test('getUserById should return 400 for invalid user ID format', async () => {
+        const req = mockRequest();
+        const res = mockResponse();
+        req.params.id = 'invalid-id';
+
+        await getUserById(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({ message: 'Invalid user ID format' });
     });
 
-    test('GET /users/:id should return 404 for a non-existing user', async () => {
-        const nonExistentId = '507f1f77bcf86cd799439999';
-        const res = await request(app).get(`/users/${nonExistentId}`);
-        expect(res.statusCode).toBe(404);
-        expect(res.body).toHaveProperty('message', 'User not found');
+    test('getUserById should return 404 if user is not found', async () => {
+        const req = mockRequest();
+        const res = mockResponse();
+        req.params.id = '507f1f77bcf86cd799439999';
+
+        req.app.locals.db.collection().findOne.mockResolvedValue(null);
+
+        await getUserById(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({ message: 'User not found' });
     });
 });
