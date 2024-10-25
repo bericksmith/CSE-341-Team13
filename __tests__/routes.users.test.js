@@ -26,12 +26,20 @@ beforeAll(async () => {
 
 afterAll(async () => {
     if (db) {
-        await db.collection('users').deleteMany({});
+        await db.collection('users').deleteMany({
+            _id: { 
+                $in: [
+                    new ObjectId('507f1f77bcf86cd799439011'), 
+                    new ObjectId('507f1f77bcf86cd799439012')
+                ]
+            }
+        });
     }
     if (connection) {
         await connection.close();
     }
 });
+
 
 describe('User API GET Endpoints', () => {
     test('GET /users should return a list of users', async () => {

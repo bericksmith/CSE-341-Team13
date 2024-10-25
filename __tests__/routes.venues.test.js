@@ -23,7 +23,14 @@ beforeAll(async () => {
 
 afterAll(async () => {
     if (db) {
-        await db.collection('venues').deleteMany({});
+        await db.collection('venues').deleteMany({
+            _id: {
+                $in: [
+                    new ObjectId('507f1f77bcf86cd799439010'),
+                    new ObjectId('507f1f77bcf86cd799439011')
+                ]
+            }
+        });
     }
     if (connection) {
         await connection.close();
