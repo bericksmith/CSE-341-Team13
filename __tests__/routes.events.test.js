@@ -1,7 +1,6 @@
 const request = require('supertest');
 const app = require('../server');
 
-// Mock the MongoDB client connection
 jest.mock('mongodb', () => {
     const actualMongo = jest.requireActual('mongodb');
     const { ObjectId } = actualMongo;
@@ -69,41 +68,3 @@ describe('Event API GET Endpoints', () => {
         expect(res.body).toHaveProperty('message', 'Event not found');
     });
 });
-
-// describe('Event API POST Endpoints', () => {
-//     test('POST /events should add an event', async () => {
-//         const res = await request(app).post('/events').send({
-//             name: "New Years Celebration",
-//             location: "College Station",
-//             date: "2024-12-31",
-//             time: "10:00 PM",
-//             venue: "Clock Tower",
-//         });
-//         expect(res.statusCode).toBe(201);
-//         expect(res.header['content-type']).toBe('application/json; charset=utf-8');
-//     });
-// });
-
-// describe('Event API UPDATE Endpoints', () => {
-//     test('PUT /events:id should update an event', async () => {
-//         const eventId = '123451234512345123451234';
-//         const res = await request(app).put(`/events/${eventId}`).send({
-//             name: 'Climbing Day Challenge',
-//             location: 'Austin',
-//             date: '2024-11-15',
-//             time: '10:00 AM',
-//             venue: 'Austin Bouldering Project'
-//         });
-//         expect(res.statusCode).toBe(200);
-//         expect(res.body).toMatchObject({ message: 'Event updated successfully' });
-//     });
-// });
-
-// describe('Event API DELETE Endpoints', () => {
-//     test('DELETE /events:id should delete and event by ID', async () => {
-//         const eventId = '123451234512345123459999';
-//         const res = await request(app).delete(`/events/${eventId}`);
-//         expect(res.statusCode).toBe(200);
-//         expect(res.body).toMatchObject({ message: 'Event deleted successfully'});
-//     });
-// });
