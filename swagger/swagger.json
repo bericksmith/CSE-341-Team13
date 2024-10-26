@@ -521,11 +521,11 @@
               "properties": {
                 "event_id": {
                   "type": "string",
-                  "example": "603e48a3e7abf40d1b0d9c7d"
+                  "example": "670de14cd436d85952af4c3f"
                 },
                 "user_id": {
                   "type": "string",
-                  "example": "603e48a3e7abf40d1b0d9c7e"
+                  "example": "671bed6b5c3ec6c00f8ed57c"
                 },
                 "ticket_number": {
                   "type": "string",
