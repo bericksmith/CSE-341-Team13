@@ -56,8 +56,8 @@ exports.createTicket = async (req, res) => {
             description: 'Ticket data',
             required: true,
             schema: {
-              $event_id: '603e48a3e7abf40d1b0d9c7d',
-              $user_id: '603e48a3e7abf40d1b0d9c7e',
+              $event_id: '670de14cd436d85952af4c3f',
+              $user_id: '671bed6b5c3ec6c00f8ed57c',
               $ticket_number: '123456789',
               $price: 50,
               $date: '2024-12-25',
