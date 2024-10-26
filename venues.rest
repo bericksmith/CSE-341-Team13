@@ -1,5 +1,5 @@
 ### Get Venue:
-GET http://localhost:5000/venues 
+GET http://cse-341-team13.onrender.com/venues 
 
 ### Get Venue by id:
 GET http://localhost:5000/venues/67117833293357433b140c4c
