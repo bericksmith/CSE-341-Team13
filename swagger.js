@@ -68,11 +68,11 @@ const doc = {
             type: 'object',
             properties: {
                 _id: { type: 'string', description: 'Event ID' },
-                name: { type: 'string', description: 'Event name' },
-                location: { type: 'string', description: 'Event location' },
-                date: { type: 'string', format: 'date-time', description: 'Event date' },
-                time: { type: 'string', description: 'hh:mm AM/PM (12-hour format)' },
-                type: { type: 'string', description: 'Event type (conference, concert)' }
+                name: { type: 'string', description: 'Event name', example: 'Fall 10K' },
+                location: { type: 'string', description: 'Event location', example: 'Georgetown' },
+                date: { type: 'string', format: 'date-time', description: 'Event date', example: '2024-11-15' },
+                time: { type: 'string', description: 'hh:mm AM/PM (12-hour format)', example: '08:00 AM' },
+                venue: { type: 'string', description: 'Event Venue Name', example: 'Central Park Pavillion' }
             }
         },
         Ticket: {
@@ -104,6 +104,13 @@ const doc = {
         Venues: {
             type: 'object',
             properties: {
+                _id: { type: 'string', description: 'Venue ID' },
+                name:{ type: 'string', description: 'Venue Name', example: 'Riverside Arena'},
+                address: { type: 'string', description: 'Venue Street Address', example: '789 Riverside Drive' },
+                city: {type: 'string', description: 'Venue City', example: 'New York'},
+                state: {type: 'string', description: 'Venue State', example: 'NY'},
+                postal: {type: 'string', description: 'Venue Zipcode', example: '10024'},
+                capacity: {type: 'string', description: 'Venue Capacity', example: '3000'},
             }
         }
     }

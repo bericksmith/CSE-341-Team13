@@ -1357,6 +1357,10 @@
                 "description": {
                   "type": "string",
                   "example": "Event name"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Fall 10K"
                 }
               }
             },
@@ -1370,6 +1374,10 @@
                 "description": {
                   "type": "string",
                   "example": "Event location"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Georgetown"
                 }
               }
             },
@@ -1387,6 +1395,10 @@
                 "description": {
                   "type": "string",
                   "example": "Event date"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "2024-11-15"
                 }
               }
             },
@@ -1400,10 +1412,14 @@
                 "description": {
                   "type": "string",
                   "example": "hh:mm AM/PM (12-hour format)"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "08:00 AM"
                 }
               }
             },
-            "type": {
+            "venue": {
               "type": "object",
               "properties": {
                 "type": {
@@ -1412,7 +1428,11 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Event type (conference, concert)"
+                  "example": "Event Venue Name"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Central Park Pavillion"
                 }
               }
             }
@@ -1705,7 +1725,123 @@
         },
         "properties": {
           "type": "object",
-          "properties": {}
+          "properties": {
+            "_id": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Venue ID"
+                }
+              }
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Venue Name"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Riverside Arena"
+                }
+              }
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Venue Street Address"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "789 Riverside Drive"
+                }
+              }
+            },
+            "city": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Venue City"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "New York"
+                }
+              }
+            },
+            "state": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Venue State"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "NY"
+                }
+              }
+            },
+            "postal": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Venue Zipcode"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "10024"
+                }
+              }
+            },
+            "capacity": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Venue Capacity"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "3000"
+                }
+              }
+            }
+          }
         }
       }
     }
